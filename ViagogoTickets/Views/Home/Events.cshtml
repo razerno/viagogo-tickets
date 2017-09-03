@@ -1,0 +1,81 @@
+﻿@model EventsViewModel
+
+@{
+    ViewData["Title"] = "Events";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@Model.EventList.Count() event(s) found.
+Cheapest event for each country has its price highlighted in bold.
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EventList.First().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventList.First().Venue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventList.First().Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventList.First().StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventList.First().EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventList.First().MinTicketPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EventList.First().Restrictions)
+            </th>
+            <th>
+                Tickets
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var e in Model.EventList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => e.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => e.Venue)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => e.Country)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => e.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => e.EndDate)
+                </td>
+                <td>
+                    @if (Model.CheapestEventIds.Contains(e.Id))
+                    {
+                        <b>@Html.DisplayFor(model => e.MinTicketPrice.Display)</b>
+
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => e.MinTicketPrice.Display)
+                    }
+                </td>
+                <td>
+                    @Html.Raw(e.Restrictions)
+                </td>
+                <td>
+                    <a asp-controller="Home" asp-action="Tickets" asp-route-eventId="@e.Id">View Tickets</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+    
+</table>

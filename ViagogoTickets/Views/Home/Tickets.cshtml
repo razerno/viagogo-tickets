@@ -1,0 +1,39 @@
+﻿@model TicketsViewModel
+
+@{
+    ViewData["Title"] = "Tickets";
+}
+
+<h2>Tickets for @Model.Event.Name</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketList.First().Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketList.First().Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TicketList.First().NumAvailable)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ticket in Model.TicketList)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => ticket.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => ticket.Price.Display)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => ticket.NumAvailable)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
